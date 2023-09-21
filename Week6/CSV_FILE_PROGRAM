@@ -1,0 +1,333 @@
+{
+ "cells": [
+  {
+   "cell_type": "markdown",
+   "id": "5cf681df-fc30-4886-bb99-c6a0b4e6a0fd",
+   "metadata": {},
+   "source": [
+    "### 1. Create a result table which contain student id, student name and 5 subject marks."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 1,
+   "id": "a2565481-507e-4474-bba6-1ae5865b3bdf",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "import sqlite3 as sq\n",
+    "con=sq.connect(\"RESULT.db\")\n",
+    "cur=con.cursor()"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 2,
+   "id": "387cf5c4-2420-48b1-8109-71fccbbb4212",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "table='''Create table if not exists result\n",
+    "        (\n",
+    "        sid int primary key,\n",
+    "        sname text NOT NULL,\n",
+    "        m1 int,\n",
+    "        m2 int,\n",
+    "        m3 int,\n",
+    "        m4 int,\n",
+    "        m5 int\n",
+    "        )'''"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 3,
+   "id": "df0e90b1-b30a-4bb1-9bf5-72e69b77f1b4",
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "<sqlite3.Cursor at 0x1de3bb812d0>"
+      ]
+     },
+     "execution_count": 3,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "cur.execute(table)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "111c3b26-c04f-46d3-8020-0b64c4b97202",
+   "metadata": {},
+   "source": [
+    "### 2. Enter 10 studnet details with its marks."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 5,
+   "id": "d8b0316d-b449-4336-9ee4-64951480e985",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "insert2=\"insert into result values(?,?,?,?,?)\""
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 6,
+   "id": "d6e73d00-8ef3-4ebb-932f-fc00305f2865",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "l=[]"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 9,
+   "id": "540fd8da-699a-400b-9b0a-989c0e3b9931",
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdin",
+     "output_type": "stream",
+     "text": [
+      "Enter student id of student 1:  1\n",
+      "Enter student Name of student 1 : OM\n",
+      "Enter marks of subject 1 of student 1 : 88\n",
+      "Enter marks of subject  2 of student 1 : 90\n",
+      "Enter marks of subject  3 of student 1 : 93\n",
+      "Enter marks of subject 4 of student 1 : 92\n",
+      "Enter marks of subject  5 of student 1 : 76\n",
+      "Enter student id of student 2:  2\n",
+      "Enter student Name of student 2 : SAI\n",
+      "Enter marks of subject 1 of student 2 : 98\n",
+      "Enter marks of subject  2 of student 2 : 90\n",
+      "Enter marks of subject  3 of student 2 : 95\n",
+      "Enter marks of subject 4 of student 2 : 75\n",
+      "Enter marks of subject  5 of student 2 : 65\n",
+      "Enter student id of student 3:  3\n",
+      "Enter student Name of student 3 : RAM\n",
+      "Enter marks of subject 1 of student 3 : 45\n",
+      "Enter marks of subject  2 of student 3 : 67\n",
+      "Enter marks of subject  3 of student 3 : 34\n",
+      "Enter marks of subject 4 of student 3 : 32\n",
+      "Enter marks of subject  5 of student 3 : 45\n",
+      "Enter student id of student 4:  4\n",
+      "Enter student Name of student 4 : SHIV\n",
+      "Enter marks of subject 1 of student 4 : 86\n",
+      "Enter marks of subject  2 of student 4 : 89\n",
+      "Enter marks of subject  3 of student 4 : 70\n",
+      "Enter marks of subject 4 of student 4 : 86\n",
+      "Enter marks of subject  5 of student 4 : 75\n",
+      "Enter student id of student 5:  5\n",
+      "Enter student Name of student 5 : KRISHNA\n",
+      "Enter marks of subject 1 of student 5 : 87\n",
+      "Enter marks of subject  2 of student 5 : 65\n",
+      "Enter marks of subject  3 of student 5 : 54\n",
+      "Enter marks of subject 4 of student 5 : 23\n",
+      "Enter marks of subject  5 of student 5 : 43\n",
+      "Enter student id of student 6:  6\n",
+      "Enter student Name of student 6 : GOPI\n",
+      "Enter marks of subject 1 of student 6 : 76\n",
+      "Enter marks of subject  2 of student 6 : 56\n",
+      "Enter marks of subject  3 of student 6 : 73\n",
+      "Enter marks of subject 4 of student 6 : 23\n",
+      "Enter marks of subject  5 of student 6 : 21\n",
+      "Enter student id of student 7:  7\n",
+      "Enter student Name of student 7 : MEERA\n",
+      "Enter marks of subject 1 of student 7 : 89\n",
+      "Enter marks of subject  2 of student 7 : 75\n",
+      "Enter marks of subject  3 of student 7 : 45\n",
+      "Enter marks of subject 4 of student 7 : 56\n",
+      "Enter marks of subject  5 of student 7 : 76\n",
+      "Enter student id of student 8:  8\n",
+      "Enter student Name of student 8 : KISHAN\n",
+      "Enter marks of subject 1 of student 8 : 68\n",
+      "Enter marks of subject  2 of student 8 : 35\n",
+      "Enter marks of subject  3 of student 8 : 54\n",
+      "Enter marks of subject 4 of student 8 : 43\n",
+      "Enter marks of subject  5 of student 8 : 65\n",
+      "Enter student id of student 9:  9\n",
+      "Enter student Name of student 9 : RADHA\n",
+      "Enter marks of subject 1 of student 9 : 86\n",
+      "Enter marks of subject  2 of student 9 : 85\n",
+      "Enter marks of subject  3 of student 9 : 82\n",
+      "Enter marks of subject 4 of student 9 : 70\n",
+      "Enter marks of subject  5 of student 9 : 88\n",
+      "Enter student id of student 10:  10\n",
+      "Enter student Name of student 10 : PARVTI\n",
+      "Enter marks of subject 1 of student 10 : 69\n",
+      "Enter marks of subject  2 of student 10 : 50\n",
+      "Enter marks of subject  3 of student 10 : 39\n",
+      "Enter marks of subject 4 of student 10 : 83\n",
+      "Enter marks of subject  5 of student 10 : 47\n"
+     ]
+    }
+   ],
+   "source": [
+    "for i in range(10):\n",
+    "    sid=int(input(f\"Enter student id of student {i+1}: \"))\n",
+    "    sname=input(f\"Enter student Name of student {i+1} :\")\n",
+    "    m1=int(input(f\"Enter marks of subject 1 of student {i+1} :\"))\n",
+    "    m2=int(input(f\"Enter marks of subject  2 of student {i+1} :\"))\n",
+    "    m3=int(input(f\"Enter marks of subject  3 of student {i+1} :\"))\n",
+    "    m4=int(input(f\"Enter marks of subject 4 of student {i+1} :\"))\n",
+    "    m5=int(input(f\"Enter marks of subject  5 of student {i+1} :\"))\n",
+    "    t=(sid,sname,m1,m2,m3,m4,m5)\n",
+    "    l.append(t)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "8794c306-3a44-4740-8556-1900c7e987a9",
+   "metadata": {},
+   "source": [
+    "### 3. Dump table into csv file \"result.csv\"."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 10,
+   "id": "88e850b7-3afb-402b-9d9b-79ca3cafe2f1",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "import csv"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 11,
+   "id": "d4913768-b95e-4405-a954-6747bddfbb98",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "header=['STUDENT_ID','STUDENT_NAME','SUBJECT_1','SUBJECT_2','SUBJECT_3','SUBJECT_4','SUBJECT_5']"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 12,
+   "id": "172378b8-faa7-481e-b980-2294ea1d10c8",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "with open('reslult_tbl.csv','w',newline=\"\") as csvfile:\n",
+    "    writer_obj=csv.writer(csvfile)\n",
+    "    writer_obj.writerow(header)\n",
+    "    writer_obj.writerows(l)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "e6e63704-1c6a-46da-aefb-cbe1442f891d",
+   "metadata": {},
+   "source": [
+    "### 4. Read result.csv file and Print Total Marks and Grade of each student. Also Append Total Marks and Grade column into result.csv file."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 13,
+   "id": "c85312e0-d90a-4ee3-92f3-5b89c232788c",
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "[{'STUDENT_ID': '1', 'STUDENT_NAME': 'Om', 'SUBJECT_1': '98', 'SUBJECT_2': '96', 'SUBJECT_3': '90', 'SUBJECT_4': '95', 'SUBJECT_5': '91'}, {'STUDENT_ID': '2', 'STUDENT_NAME': 'Sai', 'SUBJECT_1': '97', 'SUBJECT_2': '95', 'SUBJECT_3': '74', 'SUBJECT_4': '76', 'SUBJECT_5': '64'}, {'STUDENT_ID': '3', 'STUDENT_NAME': 'Ram', 'SUBJECT_1': '64', 'SUBJECT_2': '86', 'SUBJECT_3': '98', 'SUBJECT_4': '93', 'SUBJECT_5': '80'}, {'STUDENT_ID': '4', 'STUDENT_NAME': 'Shiv', 'SUBJECT_1': '48', 'SUBJECT_2': '28', 'SUBJECT_3': '57', 'SUBJECT_4': '69', 'SUBJECT_5': '43'}, {'STUDENT_ID': '46', 'STUDENT_NAME': 'Radha', 'SUBJECT_1': '97', 'SUBJECT_2': '98', 'SUBJECT_3': '8', 'SUBJECT_4': '97', 'SUBJECT_5': '96'}, {'STUDENT_ID': '6', 'STUDENT_NAME': 'Gopal', 'SUBJECT_1': '98', 'SUBJECT_2': '78', 'SUBJECT_3': '67', 'SUBJECT_4': '56', 'SUBJECT_5': '47'}, {'STUDENT_ID': '47', 'STUDENT_NAME': 'hhhhhhhh', 'SUBJECT_1': '76', 'SUBJECT_2': '86', 'SUBJECT_3': '68', 'SUBJECT_4': '76', 'SUBJECT_5': '3'}, {'STUDENT_ID': '1', 'STUDENT_NAME': 'OM', 'SUBJECT_1': '97', 'SUBJECT_2': '96', 'SUBJECT_3': '95', 'SUBJECT_4': '94', 'SUBJECT_5': '98'}, {'STUDENT_ID': '2', 'STUDENT_NAME': 'SAI', 'SUBJECT_1': '99', 'SUBJECT_2': '87', 'SUBJECT_3': '74', 'SUBJECT_4': '65', 'SUBJECT_5': '76'}, {'STUDENT_ID': '3', 'STUDENT_NAME': 'RAM', 'SUBJECT_1': '45', 'SUBJECT_2': '35', 'SUBJECT_3': '23', 'SUBJECT_4': '35', 'SUBJECT_5': '56'}, {'STUDENT_ID': '4', 'STUDENT_NAME': 'SHIV', 'SUBJECT_1': '68', 'SUBJECT_2': '77', 'SUBJECT_3': '87', 'SUBJECT_4': '67', 'SUBJECT_5': '89'}, {'STUDENT_ID': '5', 'STUDENT_NAME': 'RADHA', 'SUBJECT_1': '98', 'SUBJECT_2': '78', 'SUBJECT_3': '69', 'SUBJECT_4': '59', 'SUBJECT_5': '66'}, {'STUDENT_ID': '6', 'STUDENT_NAME': 'GOPAL', 'SUBJECT_1': '91', 'SUBJECT_2': '82', 'SUBJECT_3': '94', 'SUBJECT_4': '82', 'SUBJECT_5': '88'}, {'STUDENT_ID': '7', 'STUDENT_NAME': 'KRISHNA', 'SUBJECT_1': '57', 'SUBJECT_2': '65', 'SUBJECT_3': '45', 'SUBJECT_4': '33', 'SUBJECT_5': '23'}, {'STUDENT_ID': '8', 'STUDENT_NAME': 'KISHN', 'SUBJECT_1': '47', 'SUBJECT_2': '73', 'SUBJECT_3': '65', 'SUBJECT_4': '45', 'SUBJECT_5': '63'}, {'STUDENT_ID': '9', 'STUDENT_NAME': 'GOPI', 'SUBJECT_1': '86', 'SUBJECT_2': '55', 'SUBJECT_3': '24', 'SUBJECT_4': '25', 'SUBJECT_5': '35'}, {'STUDENT_ID': '1', 'STUDENT_NAME': 'OM', 'SUBJECT_1': '88', 'SUBJECT_2': '90', 'SUBJECT_3': '93', 'SUBJECT_4': '92', 'SUBJECT_5': '76'}, {'STUDENT_ID': '2', 'STUDENT_NAME': 'SAI', 'SUBJECT_1': '98', 'SUBJECT_2': '90', 'SUBJECT_3': '95', 'SUBJECT_4': '75', 'SUBJECT_5': '65'}, {'STUDENT_ID': '3', 'STUDENT_NAME': 'RAM', 'SUBJECT_1': '45', 'SUBJECT_2': '67', 'SUBJECT_3': '34', 'SUBJECT_4': '32', 'SUBJECT_5': '45'}, {'STUDENT_ID': '4', 'STUDENT_NAME': 'SHIV', 'SUBJECT_1': '86', 'SUBJECT_2': '89', 'SUBJECT_3': '70', 'SUBJECT_4': '86', 'SUBJECT_5': '75'}, {'STUDENT_ID': '5', 'STUDENT_NAME': 'KRISHNA', 'SUBJECT_1': '87', 'SUBJECT_2': '65', 'SUBJECT_3': '54', 'SUBJECT_4': '23', 'SUBJECT_5': '43'}, {'STUDENT_ID': '6', 'STUDENT_NAME': 'GOPI', 'SUBJECT_1': '76', 'SUBJECT_2': '56', 'SUBJECT_3': '73', 'SUBJECT_4': '23', 'SUBJECT_5': '21'}, {'STUDENT_ID': '7', 'STUDENT_NAME': 'MEERA', 'SUBJECT_1': '89', 'SUBJECT_2': '75', 'SUBJECT_3': '45', 'SUBJECT_4': '56', 'SUBJECT_5': '76'}, {'STUDENT_ID': '8', 'STUDENT_NAME': 'KISHAN', 'SUBJECT_1': '68', 'SUBJECT_2': '35', 'SUBJECT_3': '54', 'SUBJECT_4': '43', 'SUBJECT_5': '65'}, {'STUDENT_ID': '9', 'STUDENT_NAME': 'RADHA', 'SUBJECT_1': '86', 'SUBJECT_2': '85', 'SUBJECT_3': '82', 'SUBJECT_4': '70', 'SUBJECT_5': '88'}, {'STUDENT_ID': '10', 'STUDENT_NAME': 'PARVTI', 'SUBJECT_1': '69', 'SUBJECT_2': '50', 'SUBJECT_3': '39', 'SUBJECT_4': '83', 'SUBJECT_5': '47'}]\n",
+      "\n",
+      "\n"
+     ]
+    }
+   ],
+   "source": [
+    "COLUMNS=[]\n",
+    "with open('reslult_tbl.csv','r',newline=\"\") as read_csv:\n",
+    "    read_obj=csv.DictReader(read_csv)\n",
+    "    COLUMNS=list(read_obj)\n",
+    "    print(COLUMNS)\n",
+    "    print('\\n')"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 16,
+   "id": "2a6d3a00-246f-4776-b089-319162feb367",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "for row in COLUMNS:\n",
+    "    total_marks=sum(int(row[f'SUBJECT_{i}'])\n",
+    "for i in range(1,6))\n",
+    "    percentage=total_marks/5\n",
+    "    if percentage>=90:\n",
+    "        grade='A'\n",
+    "    elif percentage>=80 and percentage<=90:\n",
+    "        grade='B'\n",
+    "    elif percentage>=70 and percentage<=80:\n",
+    "        grade='C'\n",
+    "    elif percentage>=60 and percentage<=70:\n",
+    "        grade='D'\n",
+    "    elif percentage>=50 and percentage<=33:\n",
+    "        grade='E'\n",
+    "    else:\n",
+    "        grade='F'\n",
+    "row['total_marks']=total_marks\n",
+    "row['grade']=grade"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 17,
+   "id": "fd0edb68-ef55-4ea3-bf89-8c53a2bd0a1b",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "with open('reslult_tbl.csv','w',newline=\"\") as csvfile:\n",
+    "    header=['STUDENT_ID','STUDENT_NAME','SUBJECT_1','SUBJECT_2','SUBJECT_3','SUBJECT_4',\n",
+    "            'SUBJECT_5','total_marks','grade']\n",
+    "    write_obj=csv.DictWriter(csvfile,fieldnames=header)\n",
+    "    write_obj.writeheader()\n",
+    "    write_obj.writerows(COLUMNS)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "18504e10-c677-49e8-8cf2-f885cea8ec19",
+   "metadata": {},
+   "outputs": [],
+   "source": []
+  }
+ ],
+ "metadata": {
+  "kernelspec": {
+   "display_name": "Python 3 (ipykernel)",
+   "language": "python",
+   "name": "python3"
+  },
+  "language_info": {
+   "codemirror_mode": {
+    "name": "ipython",
+    "version": 3
+   },
+   "file_extension": ".py",
+   "mimetype": "text/x-python",
+   "name": "python",
+   "nbconvert_exporter": "python",
+   "pygments_lexer": "ipython3",
+   "version": "3.9.6"
+  }
+ },
+ "nbformat": 4,
+ "nbformat_minor": 5
+}
